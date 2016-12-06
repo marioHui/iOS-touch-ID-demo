@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *touchBtn;
 @property (nonatomic, strong)LAContext *laContext;
 //@property (nonatomic, strong)NSError *error;
 @end
@@ -54,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.touchBtn.layer.cornerRadius = 10;
     _laContext = [[LAContext alloc] init];
     
 }
@@ -66,12 +68,24 @@
         [_laContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics localizedReason:@"Touch Id Test" reply:^(BOOL success, NSError * _Nullable error) {
             if (success) {
                 NSLog(@"---success to evaluate---");
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证通过" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:action];
+                [self presentViewController:alert animated:YES completion:nil];
             }
             if (error) {
                 NSLog(@"---failed to evaluate---error: %@---", error.description);
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证失败" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:action];
+                [self presentViewController:alert animated:YES completion:nil];
             }
         }];
     }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"不支持touch ID" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
         NSLog(@"no evaluate touch ID");
     }
     _laContext = nil;

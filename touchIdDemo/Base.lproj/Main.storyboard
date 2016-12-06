@@ -40,6 +40,9 @@
                             <constraint firstItem="b1E-yb-59a" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Uc9-wP-0mM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="touchBtn" destination="b1E-yb-59a" id="HAQ-xV-HQy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
